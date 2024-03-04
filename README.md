@@ -6,13 +6,15 @@ Software Metrics Exporter is a tool designed to collect and export metrics about
 ## Features
 - **Software Information Collection**: Collects details about installed software packages, including name, version, and installation date.
 - **Prometheus-Compatible Output**: Formats the collected software metrics into a format that can be consumed by Prometheus.
+- **Installation Date Collection**: Now also collects the installation date for each software package, providing a more comprehensive overview of the system's software inventory.
 - **Custom Metric Sanitization**: Ensures that metric labels are safe for Prometheus by escaping quotes and backslashes.
 
 ## Getting Started
 
 ### Prerequisites
-- Go 1.22.0 or higher
+- Go 1.21.0 or higher
 - Access to a system with `dpkg-query` available (typically Debian-based distributions)
+- Ensure `awk` and `grep` utilities are available for processing command output
 
 ### Installation
 1. Clone the repository:
