@@ -3,7 +3,7 @@ package writer
 import (
 	"fmt"
 	"os"
-	"software-metrics-exporter/pkg/collector"
+	"github.com/j0sh3rs/software-metrics-exporter/pkg/collector"
 	"time"
 )
 
