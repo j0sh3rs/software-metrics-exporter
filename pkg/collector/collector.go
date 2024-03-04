@@ -17,7 +17,7 @@ type SoftwareInfo struct {
 // CollectSoftwareInfo retrieves information about installed software packages
 func CollectSoftwareInfo() ([]SoftwareInfo, error) {
 	// Command to list installed packages with their name, version, and installation date
-	cmd := exec.Command("sh", "-c", "dpkg-query -W -f='${Package} ${Version} ${Installed-Size}\n'")
+cmd := exec.Command("sh", "-c", "dpkg-query -W -f='${Package} ${Version}\n'")
 
 	var out bytes.Buffer
 	cmd.Stdout = &out
@@ -47,7 +47,14 @@ func CollectSoftwareInfo() ([]SoftwareInfo, error) {
 			Name:    parts[0],
 			Version: parts[1],
 			// Placeholder for InstallDate, consider implementing a method to determine this, if possible.
-			InstallDate: time.Time{}, // This is a placeholder
+            InstallDate: installDate,
+        // Attempt to get the installation date from the package's .list file modification time
+        listFilePath := fmt.Sprintf("/var/lib/dpkg/info/%s.list", parts[0])
+        fileInfo, err := os.Stat(listFilePath)
+        var installDate time.Time
+        if err == nil {
+            installDate = fileInfo.ModTime()
+        }
 		})
 	}
 
