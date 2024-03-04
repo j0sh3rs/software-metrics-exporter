@@ -1,3 +1,4 @@
+// Package main runs the script
 package main
 
 import (
@@ -5,7 +6,6 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -23,7 +23,7 @@ func init() {
 	viper.SetDefault("output", "./metrics.txt")
 }
 
-func runExporter(cmd *cobra.Command, args []string) {
+func runExporter(_ *cobra.Command, _ []string) {
 	outputFile := viper.GetString("output")
 
 	cmdOut, err := exec.Command("bash", "-c", "dpkg-query -W -f='${Package} ${Version} ${Installed-Size} ${Status}\n' | grep 'install ok installed' | awk '{print $1 \" \" $2 \" \" $4 \"-\" $5 \"-\" $6}'").Output()
